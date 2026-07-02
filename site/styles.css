@@ -268,29 +268,6 @@ a {
   height: auto;
 }
 
-.embedded-nav-cover {
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  right: 0;
-  width: 330px;
-  height: 82px;
-  background: #fff;
-  pointer-events: none;
-}
-
-.stock-embedded-nav-cover {
-  background: #f5fbff;
-}
-
-.pik-embedded-nav-cover {
-  background: #9ed62c;
-}
-
-.efficient-embedded-nav-cover {
-  background: transparent;
-}
-
 .video-layer {
   position: absolute;
   left: calc(var(--x) / var(--frame-width) * 100%);
