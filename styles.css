@@ -130,10 +130,11 @@ a {
   height: 100svh;
   min-height: 100svh;
   position: relative;
-  padding: 86px clamp(28px, 7vw, 112px) 72px;
+  padding: 0;
   background: #fff;
   scroll-snap-align: start;
   scroll-snap-stop: always;
+  overflow: hidden;
 }
 
 .home-kicker {
@@ -142,35 +143,9 @@ a {
   font-weight: 600;
 }
 
-.intro-section h1,
-.resume-section h2,
-.works-section h2 {
-  margin: 0;
-  font-size: clamp(52px, 7.6vw, 128px);
-  line-height: 1.13;
-  font-weight: 600;
-}
-
-.intro-section h1 {
-  margin-top: clamp(80px, 12vh, 150px);
-}
-
-.intro-note {
-  position: absolute;
-  right: clamp(28px, 7vw, 112px);
-  bottom: clamp(84px, 14vh, 180px);
-  width: min(260px, 32vw);
-  margin: 0;
-  font-size: 11px;
-  line-height: 1.45;
-  font-weight: 600;
-}
-
 .resume-section {
-  padding: 0;
   display: grid;
   place-items: center;
-  overflow: hidden;
 }
 
 .home-section-image {
@@ -186,63 +161,23 @@ a {
   object-fit: contain;
 }
 
-.home-embedded-nav-cover {
-  position: absolute;
-  top: max(0px, calc((100svh - (100vw * 9 / 16)) / 2));
-  right: 0;
-  width: min(260px, 24vw);
-  height: 86px;
-  background: #fff;
-  pointer-events: none;
-}
-
 .works-section {
   display: block;
-  padding: 0;
-  overflow: hidden;
 }
 
-.works-copy {
-  position: absolute;
-  left: clamp(28px, 7vw, 112px);
-  top: clamp(150px, 31vh, 360px);
-  z-index: 1;
-}
-
-.work-meta {
-  margin-top: clamp(54px, 7vh, 96px);
-  display: grid;
-  grid-template-columns: 96px auto;
-  gap: 42px;
-  max-width: 340px;
-  font-size: 11px;
-  line-height: 1.35;
-  font-weight: 600;
-}
-
-.works-grid {
+.works-click-grid {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: min(36svh, 350px);
+  height: min(36svh, calc(100vw * 350 / 1920));
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0;
+  z-index: 5;
 }
 
-.work-thumb {
+.works-click-grid a {
   display: block;
-  min-width: 0;
-  height: 100%;
-  overflow: hidden;
-}
-
-.work-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center bottom;
 }
 
 .figma-page {
@@ -261,48 +196,6 @@ a {
 .case-frame > img {
   width: 100%;
   height: auto;
-}
-
-.case-copy-layer {
-  position: absolute;
-  z-index: 5;
-  pointer-events: none;
-  color: #34495c;
-}
-
-.case-copy-layer h1,
-.case-copy-layer p {
-  margin: 0;
-}
-
-.case-copy-layer h1 {
-  font-size: calc(30 / var(--frame-width) * min(100vw, 1920px));
-  line-height: 1.3;
-  font-weight: 700;
-}
-
-.case-copy-layer p {
-  margin-top: calc(28 / var(--frame-width) * min(100vw, 1920px));
-  font-size: calc(23 / var(--frame-width) * min(100vw, 1920px));
-  line-height: 1.55;
-  font-weight: 500;
-}
-
-.stock-intro-copy {
-  left: calc(140 / var(--frame-width) * 100%);
-  top: calc(3636 / var(--frame-height) * 100%);
-  width: calc(780 / var(--frame-width) * 100%);
-}
-
-.stock-intro-copy::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: -3%;
-  top: -10%;
-  width: 108%;
-  height: 190%;
-  background: #dedede;
 }
 
 .video-layer {
