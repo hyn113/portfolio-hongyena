@@ -21,7 +21,7 @@ html {
 
 body {
   margin: 0;
-  background: #fff;
+  background: #f7f7f7;
   color: var(--ink);
   font-family: "Manrope", Helvetica, Arial, "Noto Sans KR", sans-serif;
   letter-spacing: 0;
@@ -122,7 +122,7 @@ a {
   overflow-x: hidden;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-  background: #fff;
+  background: #f7f7f7;
 }
 
 .home-section {
@@ -130,54 +130,132 @@ a {
   height: 100svh;
   min-height: 100svh;
   position: relative;
-  padding: 0;
-  background: #fff;
+  padding: 0 clamp(24px, 7vw, 112px);
+  background: #f7f7f7;
   scroll-snap-align: start;
   scroll-snap-stop: always;
   overflow: hidden;
 }
 
-.home-kicker {
+.intro-section h1,
+.resume-section h2,
+.works-section h2 {
   margin: 0;
-  font-size: 13px;
+  color: #151515;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.intro-section h1 {
+  position: absolute;
+  left: clamp(28px, 7vw, 112px);
+  top: clamp(136px, 20.2vh, 218px);
+  font-size: clamp(54px, 7.8vw, 148px);
+  line-height: 1.12;
+}
+
+.intro-note {
+  position: absolute;
+  right: clamp(28px, 10.4vw, 200px);
+  bottom: clamp(118px, 17.4vh, 188px);
+  width: min(360px, 30vw);
+  margin: 0;
+  color: #151515;
+  font-size: clamp(10px, 1vw, 18px);
+  line-height: 1.45;
   font-weight: 600;
 }
 
+.intro-copyright {
+  position: absolute;
+  right: clamp(28px, 10.4vw, 200px);
+  bottom: clamp(88px, 13.6vh, 146px);
+  color: #151515;
+  font-size: clamp(7px, 0.6vw, 11px);
+  line-height: 1;
+  font-weight: 500;
+}
+
 .resume-section {
+  display: block;
+}
+
+.resume-section h2 {
+  position: absolute;
+  left: clamp(28px, 7vw, 112px);
+  top: clamp(232px, 38vh, 410px);
+  font-size: clamp(48px, 5.9vw, 112px);
+  line-height: 1;
+}
+
+.resume-paper-link {
+  position: absolute;
+  left: min(55vw, 1060px);
+  top: clamp(136px, 20vh, 216px);
+  width: min(31vw, 598px);
+  aspect-ratio: 1273 / 1800;
+  background: #ededed;
   display: grid;
   place-items: center;
 }
 
-.home-section-image {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.home-section-image img {
+.resume-paper-link img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  mix-blend-mode: multiply;
 }
 
 .works-section {
   display: block;
 }
 
-.works-click-grid {
+.works-copy {
+  position: absolute;
+  left: clamp(28px, 7vw, 112px);
+  top: clamp(180px, 29vh, 314px);
+  z-index: 2;
+}
+
+.works-section h2 {
+  font-size: clamp(48px, 6.1vw, 116px);
+  line-height: 1;
+}
+
+.work-meta {
+  margin-top: clamp(54px, 8.3vh, 90px);
+  display: grid;
+  grid-template-columns: minmax(78px, 7.2vw) auto;
+  gap: clamp(28px, 4.3vw, 82px);
+  color: #151515;
+  font-size: clamp(8px, 0.86vw, 16px);
+  line-height: 1.38;
+  font-weight: 600;
+}
+
+.works-grid {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: min(36svh, calc(100vw * 350 / 1920));
+  height: min(36.3svh, calc(100vw * 392 / 1920));
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  z-index: 5;
+  z-index: 3;
 }
 
-.works-click-grid a {
+.work-thumb {
   display: block;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.work-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
 }
 
 .figma-page {
@@ -230,10 +308,10 @@ a {
 }
 
 .stock-hands {
-  --x: 0;
-  --y: 3934;
-  --w: 1920;
-  --h: 1355;
+  --x: -12;
+  --y: 4091;
+  --w: 1944;
+  --h: 1224;
 }
 
 .stock-icons {
@@ -262,6 +340,20 @@ a {
   --y: 11963;
   --w: 371;
   --h: 803;
+}
+
+.stock-bottom-loop {
+  --x: -334;
+  --y: 14132;
+  --w: 2585;
+  --h: 1809;
+}
+
+.pik-overview-motion {
+  --x: 220;
+  --y: 5724;
+  --w: 641;
+  --h: 652;
 }
 
 .pik-character {
@@ -379,11 +471,58 @@ a {
   }
 
   .home-section {
-    padding-top: 100px;
+    padding: 0 24px;
   }
 
-  .resume-section {
-    grid-template-columns: 1fr;
+  .intro-section h1 {
+    left: 24px;
+    top: 18vh;
+    font-size: clamp(46px, 13vw, 86px);
+  }
+
+  .intro-note {
+    right: 24px;
+    bottom: 18vh;
+    width: min(280px, 72vw);
+    font-size: 11px;
+  }
+
+  .intro-copyright {
+    right: 24px;
+    bottom: 13.5vh;
+  }
+
+  .resume-section h2 {
+    left: 24px;
+    top: 20vh;
+    font-size: clamp(44px, 12vw, 76px);
+  }
+
+  .resume-paper-link {
+    left: 50%;
+    top: 36vh;
+    width: min(64vw, 360px);
+    transform: translateX(-50%);
+  }
+
+  .works-copy {
+    left: 24px;
+    top: 18vh;
+  }
+
+  .works-section h2 {
+    font-size: clamp(48px, 13vw, 82px);
+  }
+
+  .work-meta {
+    margin-top: 42px;
+    grid-template-columns: 92px auto;
+    gap: 28px;
+    font-size: 11px;
+  }
+
+  .works-grid {
+    height: 30svh;
   }
 
 }
