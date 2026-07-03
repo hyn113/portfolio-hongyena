@@ -272,6 +272,8 @@ a {
 }
 
 .case-frame > img {
+  position: relative;
+  z-index: 0;
   width: 100%;
   height: auto;
 }
@@ -284,6 +286,8 @@ a {
   height: calc(var(--h) / var(--frame-height) * 100%);
   overflow: hidden;
   pointer-events: none;
+  z-index: var(--z, 1);
+  border-radius: var(--radius, 0);
 }
 
 .video-layer video {
@@ -333,6 +337,8 @@ a {
   --y: 7943;
   --w: 462;
   --h: 1001;
+  --radius: 8.8%;
+  --z: 1;
 }
 
 .stock-chart-loop {
@@ -340,6 +346,8 @@ a {
   --y: 11963;
   --w: 371;
   --h: 803;
+  --radius: 8.8%;
+  --z: 1;
 }
 
 .stock-bottom-loop {
