@@ -201,7 +201,15 @@ a {
   overflow: hidden;
 }
 
+.works-copy {
+  position: absolute;
+  left: clamp(28px, 7vw, 112px);
+  top: clamp(150px, 31vh, 360px);
+  z-index: 1;
+}
+
 .work-meta {
+  margin-top: clamp(54px, 7vh, 96px);
   display: grid;
   grid-template-columns: 96px auto;
   gap: 42px;
@@ -211,43 +219,29 @@ a {
   font-weight: 600;
 }
 
-.works-full {
+.works-grid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: min(36svh, 350px);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+}
+
+.work-thumb {
+  display: block;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.work-thumb img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center;
-}
-
-.works-link-map {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: min(100vw, calc(100svh * 1920 / 1122));
-  aspect-ratio: 1920 / 1122;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.works-link {
-  position: absolute;
-  top: 68.8%;
-  height: 31.2%;
-  pointer-events: auto;
-}
-
-.stocktalk-link {
-  left: 0;
-  width: 33.3%;
-}
-
-.piki-link {
-  left: 33.3%;
-  width: 33.4%;
-}
-
-.efficient-link {
-  left: 66.7%;
-  width: 33.3%;
+  object-fit: cover;
+  object-position: center bottom;
 }
 
 .figma-page {
