@@ -271,7 +271,7 @@ a {
   background: #111;
 }
 
-.case-frame > img {
+.case-frame > img:not(.frame-layer) {
   position: relative;
   z-index: 0;
   width: 100%;
@@ -280,10 +280,10 @@ a {
 
 .video-layer {
   position: absolute;
-  left: calc(var(--x) / var(--frame-width) * 100%);
-  top: calc(var(--y) / var(--frame-height) * 100%);
-  width: calc(var(--w) / var(--frame-width) * 100%);
-  height: calc(var(--h) / var(--frame-height) * 100%);
+  left: calc((var(--x) + var(--vx, 0)) / var(--frame-width) * 100%);
+  top: calc((var(--y) + var(--vy, 0)) / var(--frame-height) * 100%);
+  width: calc((var(--w) + var(--vw, 0)) / var(--frame-width) * 100%);
+  height: calc((var(--h) + var(--vh, 0)) / var(--frame-height) * 100%);
   overflow: hidden;
   pointer-events: none;
   z-index: var(--z, 1);
