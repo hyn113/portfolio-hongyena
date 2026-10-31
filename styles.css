@@ -1695,6 +1695,10 @@ a {
   background-image: linear-gradient(105deg, #626971 0%, #aeb5bd 28%, #fff 48%, #a4abb4 62%, #555b63 100%);
 }
 
+.resume-shimmer--orange {
+  background-image: linear-gradient(105deg, #a64c16 0%, #dc7028 28%, #ffd0a3 48%, #e3843e 62%, #9d4514 100%);
+}
+
 @keyframes resume-shimmer {
   from { background-position: 100% 50%; }
   to { background-position: -120% 50%; }
