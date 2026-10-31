@@ -5,21 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Pik! | Hong Yena</title>
     <link rel="icon" href="../assets/favicon-active.png" type="image/png" />
-    <link rel="stylesheet" href="../styles.css?v=20260703-7" />
-    <script src="../favicon-state.js?v=20260703-7" defer></script>
+    <link rel="stylesheet" href="../styles.css?v=20261031-67" />
+    <script src="../favicon-state.js?v=20261031-2" defer></script>
   </head>
   <body class="figma-page">
     <header class="site-header">
-      <a class="brand" href="../">Hong Yena</a>
+      <a class="brand" href="../index.html">HONG YENA</a>
       <nav>
-        <a href="../page/">resumé</a>
-        <a href="../stocktalk/">stocktalk</a>
-        <a href="../piki/">Pik!</a>
-        <a href="../efficient/">EFFICIENT</a>
+        <a href="../page/index.html">Resumé</a>
+        <div class="site-project-links">
+          <a href="../soundi/index.html">SOUNDI</a>
+          <a href="../redy/index.html">Redy</a>
+          <a href="../piki/index.html">Pik!</a>
+          <a href="../stocktalk/index.html">stocktalk</a>
+          <a href="../efficient/index.html">EFFICIENT</a>
+        </div>
       </nav>
     </header>
 
-    <main class="case-frame pik-frame" aria-label="Pik Figma case study">
+    <nav class="project-switcher" aria-label="Project navigation">
+      <a class="project-switcher-link project-switcher-prev" href="../redy/index.html" aria-label="Previous project: Redy">
+        <span class="project-switcher-arrow" aria-hidden="true">&lt;</span>
+        <span class="project-switcher-copy">
+          <span class="project-switcher-name">Redy</span>
+          <span class="project-switcher-subtitle">헌혈 전 준비부터 회복과 다음 참여까지 이어지는 건강관리 서비스</span>
+        </span>
+      </a>
+      <a class="project-switcher-link project-switcher-next" href="../stocktalk/index.html" aria-label="Next project: stocktalk">
+        <span class="project-switcher-copy">
+          <span class="project-switcher-name">stocktalk</span>
+          <span class="project-switcher-subtitle">대화로 투자 의도를 실행하는 AI 주식 어시스턴스</span>
+        </span>
+        <span class="project-switcher-arrow" aria-hidden="true">&gt;</span>
+      </a>
+    </nav>
+
+    <main
+      class="case-frame pik-frame"
+      aria-label="Pik! Figma case study. Press Enter to view project details."
+      aria-haspopup="dialog"
+      tabindex="0"
+      data-project-key="piki"
+      data-project-title="Pik!"
+      data-project-team="3인 1팀"
+      data-project-duration="2025.09 – 2025.10"
+      data-project-subtitle="먹지 않는 음식을 필터링해 외식을 도와주는 서비스"
+      data-project-description="알레르기, 종교적 이유, 채식 등의 이유로 먹지 않는 음식이 있을 때 식당과 메뉴 선택은 복잡해집니다. Pik!는 개인의 먹지 않는 음식을 프로필로 등록하고, 메뉴의 안전도와 식당의 적합도를 3단계로 확인할 수 있는 외식 선택 서비스입니다. &#10;&#10;지도와 리스트형 UI를 통해 적합도를 색으로 표시해 주변 식당을 비교하도록 돕고, 여러 프로필을 함께 적용해 동행인의 조건도 고려할 수 있도록 했습니다. 반복적인 정보 확인의 부담을 줄이고, 나와 동행인이 함께 즐길 수 있는 식사를 찾도록 돕습니다."
+    >
       <img src="../assets/figma-ref/pik-full.jpg?v=20260703-7" alt="Pik portfolio case study" />
 
       <div class="video-layer pik-character">
@@ -59,5 +91,8 @@
       </div>
     </main>
     <script src="../video-autoplay.js?v=20260703-7"></script>
+    <script src="../reveal.js?v=20261031-1" defer></script>
+    <script src="../project-info-overlay.js?v=20261031-15" defer></script>
+    <script src="../cipher-reveal.js?v=20261031-5" defer></script>
   </body>
 </html>

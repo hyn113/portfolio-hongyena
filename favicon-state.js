@@ -32,4 +32,14 @@
   window.addEventListener("focus", updateTabState);
   window.addEventListener("blur", updateTabState);
   updateTabState();
+
+  const isImageEvent = (event) =>
+    event.target instanceof Element && Boolean(event.target.closest("img"));
+
+  document.addEventListener("contextmenu", (event) => {
+    if (isImageEvent(event)) event.preventDefault();
+  });
+  document.addEventListener("dragstart", (event) => {
+    if (isImageEvent(event)) event.preventDefault();
+  });
 })();
