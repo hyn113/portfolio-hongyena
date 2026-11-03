@@ -1909,3 +1909,11 @@ html.reveal-ready .reveal-item.is-visible {
   }
 }
 
+
+/* Tablet touch layouts: keep project detail content free of side navigation. */
+@media (min-width: 561px) and (any-pointer: coarse),
+       (min-width: 561px) and (hover: none) {
+  .project-switcher {
+    display: none;
+  }
+}
