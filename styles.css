@@ -2015,7 +2015,7 @@ a {
   overflow: auto;
   padding: 16px 34px;
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.55;
   overflow-wrap: anywhere;
 }
 
@@ -2052,6 +2052,7 @@ a {
   padding: 8px 16px;
   border-radius: 16px;
   background: var(--surface-raised);
+  word-break: keep-all;
 }
 
 .portfolio-chat-answer {
@@ -2061,6 +2062,8 @@ a {
 .portfolio-chat-answer p {
   margin: 0;
   white-space: pre-wrap;
+  font-weight: 400;
+  word-break: keep-all;
 }
 
 .portfolio-chat-answer.is-waiting::before {
