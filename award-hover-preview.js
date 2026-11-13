@@ -30,6 +30,7 @@
     pointerY = event.clientY;
     image.src = target.dataset.hoverPreview;
     image.alt = target.dataset.hoverPreviewAlt || "Project preview";
+    preview.classList.toggle("is-wide", target.hasAttribute("data-hover-preview-wide"));
     positionPreview();
     preview.classList.add("is-visible");
   });
