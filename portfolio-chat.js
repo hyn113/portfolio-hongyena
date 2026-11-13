@@ -6,32 +6,32 @@
   const topics = [
     {
       match: /soundi|사운디|농인|햅틱|작곡/i,
-      answer: "SOUNDI는 농인이 음악을 만들고 경험할 수 있도록 설계한 프로젝트예요. 예나는 블록 기반 작곡 인터페이스를 설계하고, 음악을 시각과 진동으로 경험할 수 있는 웹·햅틱 프로토타입을 제작했어요.",
+      answer: "SOUNDI에서 저는 블록 기반 작곡 화면을 설계하고, 만든 곡을 진동으로 느낄 수 있는 프로토타입을 구현했어요.",
       link: ["SOUNDI 프로젝트", "soundi/index.html"],
     },
     {
       match: /웹도록|졸업전시|전시 운영/,
-      answer: "예나는 졸업전시 웹도록 제작과 운영을 담당했어요. 학생 프로필과 작품 자료를 취합하고 검수했으며, 전시 디자인 기획·제작과 운영에도 참여했어요.",
+      answer: "저는 졸업전시 웹도록을 제작·운영하고 학생 프로필과 작품 자료를 검수했어요. 전시 디자인 기획과 제작에도 참여했어요.",
       link: ["졸업전시 웹도록", "https://sswudesign2026.com/"],
     },
     {
       match: /일경험|카페|브랜딩/,
-      answer: "미래내일 일경험에서 8주간 카페 브랜딩 프로젝트를 수행했어요. 포스터 등 브랜드 응용물을 제작하고 디자인 시스템을 구축했으며, 해냄 주식회사의 6차 프로젝트에서 우수상을 받았어요.",
+      answer: "8주간 카페 브랜딩을 하며 포스터와 디자인 시스템을 만들었어요. 저희 팀은 미래내일 일경험 6차 프로젝트에서 우수상을 받았어요.",
       link: ["이력서에서 경험 보기", "page/#resume-experience-title"],
     },
     {
-      match: /어떤|디자이너|소개|강점|홍예나|yena/i,
-      answer: "홍예나는 사용자 경험을 조사하고, 화면 설계부터 작동하는 프로토타입까지 만드는 디자이너예요. SOUNDI에서는 음악 창작을 시각과 촉각으로 경험하는 방법을 탐구했고, 졸업전시에서는 웹도록 제작과 운영을 맡았어요.",
+      match: /어떤\s*디자이너|디자이너로서|디자인\s*(?:강점|방식|스타일)|(?:예나(?:님)?|본인|자기)\s*(?:의\s*)?(?:소개|강점)|^\s*(?:홍예나|Hong Yena|자기소개|강점)(?:[?!.\s]*)$/i,
+      answer: "저는 사용자가 어디에서 막히는지 살펴보고, 해결 방법을 직접 써볼 수 있는 프로토타입으로 만드는 디자이너예요.",
       link: ["이력서 보기", "page/"],
     },
   ];
 
   const alternateAnswers = [
-    "예나가 SOUNDI에서 맡은 핵심 작업은 작곡 화면 설계와 프로토타이핑이에요. 음악 블록을 배치해 곡을 만들고, 화면과 햅틱 디바이스에서 결과를 경험할 수 있도록 구현했어요.",
-    "졸업전시에서 예나는 작품을 온라인에서도 찾아볼 수 있도록 웹도록을 제작하고 운영했어요. 학생별 프로필과 작품 자료를 검수하고 전시 디자인과 운영에도 참여했어요.",
-    "예나는 8주간 카페 브랜딩을 진행하면서 포스터와 브랜드 디자인 시스템을 만들었어요. 이 프로젝트는 해냄 주식회사의 미래내일 일경험 6차 프로젝트에서 우수상을 받았어요.",
-    "예나는 리서치에서 발견한 문제를 실제로 체험할 수 있는 형태로 만드는 디자이너예요. SOUNDI의 작곡 UI와 햅틱 프로토타입, 졸업전시 웹도록이 그 예예요.",
-    "포트폴리오에서 확인할 수 있는 경험을 중심으로 안내하고 있어요. 예나가 맡은 역할이나 SOUNDI, 졸업전시 웹도록, 카페 브랜딩에 대해 질문해 주세요.",
+    "저는 작곡 화면에서 만든 곡을 진동으로도 느낄 수 있도록 햅틱 디바이스와 AI 매핑, API 연동을 맡았어요.",
+    "전시장 밖에서도 작품을 볼 수 있게 웹도록을 만들고, 학생별 작품과 프로필이 제대로 올라갔는지 확인했어요.",
+    "카페 브랜딩에서 제가 만든 결과물은 포스터와 브랜드 디자인 시스템이에요. 8주 동안 진행한 프로젝트로 저희 팀이 우수상을 받았어요.",
+    "저는 화면을 설계한 뒤 실제로 써볼 수 있는 형태까지 만드는 편이에요. SOUNDI에서는 웹과 햅틱 디바이스를 연결했고, 졸업전시에서는 작품을 찾아볼 수 있는 웹도록을 만들어 운영했어요.",
+    "공개 포트폴리오에 담긴 경험을 바탕으로 답하고 있어요. SOUNDI의 작곡 화면이나 졸업전시 웹도록에서 제가 맡은 일을 물어봐 주세요.",
   ];
 
   const chat = document.createElement("div");
@@ -80,7 +80,7 @@
       </div>
       <div class="portfolio-chat-thread-menu" id="portfolio-chat-thread-menu" hidden></div>
       <div class="portfolio-chat-log" role="log" aria-label="대화" aria-live="polite">
-        <p class="portfolio-chat-welcome">How can I help you today?</p>
+        <p class="portfolio-chat-welcome">제 작업에 대해 궁금한 게 있나요?</p>
       </div>
       <form>
         <input class="portfolio-chat-image-input" type="file" accept="image/*" multiple hidden />
@@ -465,7 +465,7 @@
     reply.className = "portfolio-chat-answer";
     const body = document.createElement("p");
     const topic = topics.find(({ match }) => match.test(question));
-    const originalAnswer = topic?.answer ?? (question === "이미지를 첨부했어요." ? "이미지를 첨부했어요. 이미지에 대해 궁금한 점을 텍스트로 알려주세요." : null) ?? "이 질문에 대한 답은 아직 준비되지 않았어요. SOUNDI, 졸업전시 웹도록, 카페 브랜딩 프로젝트에 대해 물어볼 수 있어요.";
+    const originalAnswer = topic?.answer ?? (question === "이미지를 첨부했어요." ? "이미지를 첨부했어요. 이미지에 대해 궁금한 점을 텍스트로 알려주세요." : null) ?? "제 작업과 경험에 대해 답할 수 있어요. SOUNDI에서 제가 맡은 일을 물어봐 주세요.";
     const link = topic && document.createElement("a");
     if (link) {
       link.textContent = topic.link[0];
@@ -612,7 +612,7 @@ ${link.href}` : body.textContent;
         chunk.textContent = chunks[position++];
         body.append(chunk);
         if (position === chunks.length) timer = setTimeout(() => finishReply(), 150);
-        else timer = setTimeout(advance, 42);
+        else timer = setTimeout(advance, 24);
         if (follow) log.scrollTop = log.scrollHeight;
       };
       if (chatApi && question !== "이미지를 첨부했어요.") {
@@ -666,7 +666,7 @@ ${link.href}` : body.textContent;
         if (finishReply !== operation || !exchange.isConnected) return;
       }
       chunks = answer.match(/\S+\s*|\s+/gu) || [];
-      if (chunks.length) timer = setTimeout(advance, 550);
+      if (chunks.length) timer = setTimeout(advance, 180);
       else finishReply();
     }
 
