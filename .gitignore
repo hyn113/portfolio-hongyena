@@ -7,6 +7,9 @@
 /assets/*
 !/assets/favicon-active.png
 !/assets/favicon-idle.png
+!/assets/previews/
+/assets/previews/*
+!/assets/previews/sswu-design-2026.jpg
 !/assets/home-connected/
 /assets/home-connected/*
 !/assets/home-connected/resume-slide.png

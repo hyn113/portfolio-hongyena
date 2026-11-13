@@ -1,4 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@350;400;500;600;700;800&display=swap");
+
+/* Limit Pretendard to Hangul so Manrope still handles Latin and digits. */
+@font-face {
+  font-family: "Pretendard Hangul";
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/woff2/PretendardVariable.woff2") format("woff2");
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7FF, U+FFA0-FFDC;
+}
 
 :root {
   --canvas: #c8c8c8;
@@ -31,7 +41,7 @@ body {
   margin: 0;
   background: var(--page-bg);
   color: var(--ink);
-  font-family: "Manrope", Helvetica, Arial, "Noto Sans KR", sans-serif;
+  font-family: "Pretendard Hangul", "Manrope", Helvetica, Arial, "Noto Sans KR", sans-serif;
   letter-spacing: 0;
   overflow-x: hidden;
 }
@@ -199,7 +209,7 @@ a {
 }
 
 .home-snap {
-  font-family: "Manrope", Helvetica, Arial, "Noto Sans KR", sans-serif;
+  font-family: "Pretendard Hangul", "Manrope", Helvetica, Arial, "Noto Sans KR", sans-serif;
   width: 100vw;
   height: 100svh;
   overflow-y: auto;
@@ -1159,6 +1169,32 @@ a {
   background: var(--page-bg);
 }
 
+.home-page,
+.resume-detail {
+  --portfolio-gutter: 28px;
+}
+
+.resume-detail .site-header {
+  padding-inline: var(--portfolio-gutter);
+}
+
+.resume-detail .site-header {
+  isolation: isolate;
+  mix-blend-mode: normal;
+  color: var(--ink);
+}
+
+.resume-detail .site-header .brand,
+.resume-detail .site-header nav {
+  color: inherit;
+}
+
+.resume-detail .site-header::before {
+  display: block;
+  inset: 0 0 -14px;
+  background: linear-gradient(to bottom, var(--page-bg) 0%, var(--page-bg) 62%, transparent 100%);
+}
+
 .home-layout {
   min-height: 100vh;
   display: grid;
@@ -1174,7 +1210,7 @@ a {
   align-self: start;
   height: 100vh;
   min-height: 420px;
-  padding: 36px clamp(22px, 3vw, 48px);
+  padding: 36px var(--portfolio-gutter);
   border-right: 0;
 }
 
@@ -1208,7 +1244,7 @@ a {
 
 .home-main {
   min-width: 0;
-  padding: 36px clamp(22px, 4.2vw, 60px) 64px;
+  padding: 36px var(--portfolio-gutter) 64px;
 }
 
 .home-project-list {
@@ -1399,7 +1435,7 @@ a {
   }
 
   .home-main {
-    padding: 94px 22px 40px;
+    padding: 94px var(--portfolio-gutter) 40px;
   }
 
   .home-project-list {
@@ -1419,6 +1455,11 @@ a {
 
 /* Keep the portfolio and case-study headers readable on narrow screens. */
 @media (max-width: 980px) {
+  .home-page,
+  .resume-detail {
+    --portfolio-gutter: 16px;
+  }
+
   .site-header {
     height: auto;
     min-height: 0;
@@ -1486,7 +1527,7 @@ a {
     align-items: flex-start;
     justify-content: flex-start;
     gap: 4px;
-    padding: 10px 16px 12px;
+    padding: 10px var(--portfolio-gutter) 12px;
   }
 
   .home-brand {
@@ -1498,7 +1539,7 @@ a {
     inset: auto;
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 16px;
     margin: 0;
@@ -1524,7 +1565,7 @@ a {
     max-width: calc(100% - 72px);
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-end;
     gap: 0 16px;
     margin-left: auto;
@@ -1554,17 +1595,886 @@ a {
   }
 }
 
+.portfolio-chat {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  transform: translate(var(--chat-x, 16px), var(--chat-y, 16px));
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  color: var(--ink);
+}
+
+.portfolio-chat.is-dragging {
+  transition: none;
+}
+
+.portfolio-chat .portfolio-chat-toggle {
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+}
+
+.portfolio-chat.is-dragging .portfolio-chat-toggle {
+  cursor: grabbing;
+}
+
+.portfolio-chat-hint,
+.portfolio-chat-panel {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 10px);
+}
+
+.portfolio-chat-panel {
+  bottom: calc(100% + 16px);
+}
+
+.portfolio-chat[data-side="left"] :is(.portfolio-chat-hint, .portfolio-chat-panel) {
+  right: auto;
+  left: 0;
+}
+
+.portfolio-chat[data-vertical="top"] :is(.portfolio-chat-hint, .portfolio-chat-panel) {
+  top: calc(100% + 10px);
+  bottom: auto;
+}
+
+.portfolio-chat[data-vertical="top"] .portfolio-chat-panel {
+  top: calc(100% + 16px);
+}
+
+.portfolio-chat[data-vertical="middle"] .portfolio-chat-panel {
+  top: calc((100dvh - var(--chat-panel-height)) / 2 - var(--chat-y));
+  bottom: auto;
+}
+
+.portfolio-chat-hint {
+  z-index: 2;
+  width: max-content;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--surface-bg);
+  font-size: 12px;
+  line-height: 16px;
+  pointer-events: none;
+}
+
+.portfolio-chat-hint::after {
+  content: "";
+  position: absolute;
+  right: 18px;
+  bottom: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 1px;
+  background: inherit;
+  transform: rotate(45deg);
+}
+
+.portfolio-chat[data-side="left"] .portfolio-chat-hint::after {
+  right: auto;
+  left: 17px;
+}
+
+.portfolio-chat[data-vertical="top"] .portfolio-chat-hint::after {
+  top: -3px;
+  bottom: auto;
+}
+
+.portfolio-chat button,
+.portfolio-chat textarea {
+  font: inherit;
+  color: inherit;
+}
+
+.portfolio-chat button {
+  cursor: pointer;
+}
+
+.portfolio-chat-panel form button[type="submit"] {
+  border: 0;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: var(--ink);
+  color: var(--surface-bg) !important;
+}
+
+.portfolio-chat .portfolio-chat-toggle {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface-bg);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.12);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.portfolio-chat-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+.portfolio-chat-toggle .portfolio-chat-dismiss,
+.portfolio-chat-toggle[aria-expanded="true"] > svg {
+  display: none;
+}
+
+.portfolio-chat-toggle[aria-expanded="true"] .portfolio-chat-dismiss {
+  display: grid;
+  place-items: center;
+}
+
+.portfolio-chat-panel {
+  --chat-panel-height: min(var(--chat-height, 500px), calc(100dvh - 88px));
+  z-index: 1;
+  width: min(var(--chat-width, 400px), calc(100vw - 32px));
+  height: var(--chat-panel-height);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-bg);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+  transform-origin: bottom right;
+  animation: portfolio-chat-open 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.portfolio-chat[data-side="left"] .portfolio-chat-panel {
+  transform-origin: bottom left;
+}
+
+.portfolio-chat[data-vertical="top"] .portfolio-chat-panel {
+  transform-origin: top right;
+}
+
+.portfolio-chat[data-side="left"][data-vertical="top"] .portfolio-chat-panel {
+  transform-origin: top left;
+}
+
+.portfolio-chat [hidden] {
+  display: none;
+}
+
+.portfolio-chat-panel header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px;
+}
+
+.portfolio-chat-panel header {
+  min-height: 44px;
+  padding: 6px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.portfolio-chat .portfolio-chat-resize {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  border-top: 2px solid var(--line);
+  border-left: 2px solid var(--line);
+  border-radius: 12px 0 0;
+  background: transparent;
+  cursor: nwse-resize;
+  touch-action: none;
+}
+
+.portfolio-chat[data-side="left"] .portfolio-chat-resize {
+  left: auto;
+  right: 0;
+  transform: scaleX(-1);
+  cursor: nesw-resize;
+}
+
+.portfolio-chat[data-vertical="top"] .portfolio-chat-resize {
+  top: auto;
+  bottom: 0;
+  transform: scaleY(-1);
+  cursor: nesw-resize;
+}
+
+.portfolio-chat[data-side="left"][data-vertical="top"] .portfolio-chat-resize {
+  transform: scale(-1);
+  cursor: nwse-resize;
+}
+
+.portfolio-chat-panel h2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.portfolio-chat-actions {
+  display: flex;
+  gap: 3px;
+}
+
+.portfolio-chat-actions button {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 17px;
+}
+
+.portfolio-chat-actions button:hover,
+.portfolio-chat-actions button[aria-expanded="true"] {
+  background: var(--surface-raised);
+}
+
+.portfolio-chat-thread-list {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 10px 8px;
+}
+
+.portfolio-chat-panel.is-thread-list > :is(.portfolio-chat-log, form, .portfolio-chat-suggestions) {
+  display: none;
+}
+
+.portfolio-chat-thread-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  margin: 0 2px 16px;
+  padding: 0 10px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ink) 4%, var(--surface-bg));
+  color: var(--muted);
+}
+
+.portfolio-chat-thread-search svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+.portfolio-chat-thread-search input,
+.portfolio-chat-thread-rename {
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+}
+
+.portfolio-chat-thread-search input:focus {
+  outline: 0;
+}
+
+.portfolio-chat-thread-search:focus-within {
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.portfolio-chat-thread-rows h3 {
+  margin: 12px 10px 4px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.portfolio-chat-thread-row {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  margin-bottom: 2px;
+  border-radius: 8px;
+}
+
+.portfolio-chat-thread-row:hover,
+.portfolio-chat-thread-row:focus-within,
+.portfolio-chat-thread-row:has([aria-current="true"], [aria-expanded="true"]) {
+  background: var(--surface-raised);
+}
+
+.portfolio-chat-thread-row button,
+.portfolio-chat-thread-menu button {
+  border: 0;
+  background: transparent;
+}
+
+.portfolio-chat-thread-select {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+  padding: 0 10px;
+  border-radius: 8px;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px !important;
+}
+
+.portfolio-chat-thread-rename {
+  margin: 0 8px;
+  padding: 3px 2px;
+}
+
+.portfolio-chat-thread-more {
+  display: grid;
+  place-items: center;
+  flex: 0 0 28px;
+  height: 26px;
+  margin-right: 4px;
+  padding: 0;
+  border-radius: 6px;
+  opacity: 0;
+}
+
+.portfolio-chat-thread-row:hover .portfolio-chat-thread-more,
+.portfolio-chat-thread-row:focus-within .portfolio-chat-thread-more,
+.portfolio-chat-thread-more[aria-expanded="true"] {
+  opacity: 1;
+}
+
+.portfolio-chat-thread-more:hover {
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+
+@media (hover: none) {
+  .portfolio-chat-thread-more {
+    opacity: 1;
+  }
+}
+
+.portfolio-chat-thread-menu {
+  position: absolute;
+  z-index: 4;
+  width: 128px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-bg);
+  box-shadow: 0 8px 24px #0002;
+}
+
+.portfolio-chat-thread-menu button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.portfolio-chat-thread-menu button:hover,
+.portfolio-chat-thread-menu button:focus-visible {
+  background: var(--surface-raised);
+}
+
+.portfolio-chat-thread-menu .is-danger {
+  color: #c53c48;
+}
+
+@media (prefers-color-scheme: dark) {
+  .portfolio-chat-thread-menu .is-danger {
+    color: #f87171;
+  }
+}
+
+.portfolio-chat-thread-list p {
+  margin: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.portfolio-chat-log {
+  flex: 1;
+  overflow: auto;
+  padding: 16px 34px;
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.portfolio-chat-log p {
+  margin: 0 0 12px;
+}
+
+.portfolio-chat-log .portfolio-chat-welcome {
+  display: none;
+}
+
+.portfolio-chat-panel.is-empty .portfolio-chat-log {
+  flex: 0 0 auto;
+  margin-top: auto;
+  padding: 0 34px 24px;
+}
+
+.portfolio-chat-panel.is-empty .portfolio-chat-welcome {
+  display: block;
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.35;
+}
+
+.portfolio-chat-log a {
+  display: block;
+  text-decoration: underline;
+}
+
+.portfolio-chat-log .portfolio-chat-question {
+  width: fit-content;
+  max-width: 80%;
+  margin-left: auto;
+  padding: 8px 16px;
+  border-radius: 16px;
+  background: var(--surface-raised);
+}
+
+.portfolio-chat-answer {
+  margin: 22px 0;
+}
+
+.portfolio-chat-answer p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.portfolio-chat-answer.is-waiting::before {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  margin-block: 34px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: portfolio-chat-pulse 1s ease-in-out infinite alternate;
+}
+
+.portfolio-chat-stream-chunk {
+  animation: portfolio-chat-text-in 150ms ease-out both;
+}
+
+@keyframes portfolio-chat-text-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes portfolio-chat-pulse {
+  to { opacity: 0.35; }
+}
+
+.portfolio-chat-suggestions {
+  display: grid;
+  gap: 2px;
+  margin-bottom: auto;
+  padding: 0 28px 12px;
+  font-size: 13px;
+}
+
+.portfolio-chat-suggestions button {
+  padding: 7px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  text-align: left;
+}
+
+.portfolio-chat-suggestions button::before {
+  content: "›";
+  margin-right: 8px;
+  color: var(--muted);
+}
+
+.portfolio-chat-suggestions button:hover {
+  background: var(--surface-raised);
+}
+
+.portfolio-chat-panel form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(40px, 1fr) 28px;
+  flex: 0 0 auto;
+  gap: 4px;
+  margin: 0 26px 24px;
+  min-height: 94px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface-bg);
+}
+
+.portfolio-chat-panel form:has(.portfolio-chat-attachments[hidden]) {
+  grid-template-rows: minmax(40px, 1fr) 28px;
+}
+
+.portfolio-chat-panel.is-empty form {
+  margin-bottom: 16px;
+}
+
+.portfolio-chat-panel textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 4px 10px;
+  border: 0;
+  outline: 0;
+  resize: none;
+  background: transparent;
+  font-size: 15px;
+  line-height: 24px;
+}
+
+.portfolio-chat-composer-tools {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.portfolio-chat-composer-tools .portfolio-chat-attach,
+.portfolio-chat-composer-tools .portfolio-chat-mic {
+  display: grid;
+  place-items: center;
+  flex: 0 0 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+}
+
+.portfolio-chat-composer-tools .portfolio-chat-attach {
+  border-color: var(--line);
+}
+
+.portfolio-chat-composer-tools :is(.portfolio-chat-attach, .portfolio-chat-mic):hover {
+  background: var(--surface-raised);
+  color: var(--ink);
+}
+
+.portfolio-chat-composer-tools .portfolio-chat-mic[aria-pressed="true"] {
+  background: var(--surface-raised);
+  color: #dc505c;
+}
+
+.portfolio-chat-dictation-status {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px;
+  line-height: 1.15;
+  color: var(--muted);
+}
+
+.portfolio-chat-attachments,
+.portfolio-chat-sent-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.portfolio-chat-attachment {
+  position: relative;
+  width: 56px;
+  height: 56px;
+}
+
+.portfolio-chat-attachment img,
+.portfolio-chat-sent-images img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.portfolio-chat-attachment button {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface-bg);
+}
+
+.portfolio-chat-sent-images {
+  justify-content: flex-end;
+  margin-bottom: 6px;
+}
+
+.portfolio-chat-sent-images img {
+  width: min(112px, 42%);
+  height: auto;
+  max-height: 112px;
+}
+
+.portfolio-chat-panel form button[aria-disabled="true"] {
+  opacity: 0.48;
+  cursor: default;
+}
+
+.portfolio-chat-panel:focus {
+  outline: none;
+}
+
+.portfolio-chat-panel button svg,
+.portfolio-chat-message-menu svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  display: block;
+}
+
+.portfolio-chat-actions button {
+  display: grid;
+  place-items: center;
+}
+
+.portfolio-chat-actions .portfolio-chat-close {
+  display: none;
+}
+
+.portfolio-chat[data-vertical="middle"] .portfolio-chat-close {
+  display: grid;
+}
+
+.portfolio-chat-suggestions strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.portfolio-chat-suggestions button span {
+  color: var(--muted);
+}
+
+.portfolio-chat-archive[aria-pressed="true"] {
+  background: var(--surface-raised);
+}
+
+.portfolio-chat-panel.is-archived-preview > :is(form, .portfolio-chat-suggestions),
+.portfolio-chat-panel.is-archived-preview :is(button[aria-label="질문 수정"], button[aria-label="다시 답변하기"]) {
+  display: none;
+}
+
+.portfolio-chat-branch {
+  display: flex;
+  align-items: center;
+  flex: none;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.portfolio-chat-branch button {
+  display: grid;
+  place-items: center;
+  width: 19px;
+  height: 24px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.portfolio-chat-branch button[aria-disabled="true"] {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.portfolio-chat-branch button svg {
+  width: 13px;
+  height: 13px;
+}
+
+.portfolio-chat-message-actions.portfolio-chat-user-actions {
+  justify-content: flex-end;
+  margin: -8px 0 0;
+  opacity: 0;
+}
+
+.portfolio-chat-log > div:hover .portfolio-chat-user-actions,
+.portfolio-chat-user-actions:focus-within {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .portfolio-chat-message-actions.portfolio-chat-user-actions {
+    opacity: 1;
+  }
+}
+
+.portfolio-chat-edit {
+  margin: 0 0 12px auto;
+  padding: 10px;
+  border-radius: 14px;
+  background: var(--surface-raised);
+}
+
+.portfolio-chat-edit textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 6px;
+  border: 0;
+  background: transparent;
+  resize: vertical;
+}
+
+.portfolio-chat-edit > div {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.portfolio-chat-edit button {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: var(--surface-bg);
+  font-size: 13px;
+}
+
+.portfolio-chat-edit button:last-child {
+  background: var(--ink);
+  color: var(--surface-bg);
+}
+
+.portfolio-chat-message-actions {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 6px 0 0 -4px;
+  color: var(--muted);
+}
+
+.portfolio-chat-message-actions > button,
+.portfolio-chat-message-menu summary {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  list-style: none;
+  cursor: pointer;
+}
+
+.portfolio-chat-message-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.portfolio-chat-message-actions > button:hover,
+.portfolio-chat-message-actions > button[aria-pressed="true"],
+.portfolio-chat-message-menu summary:hover,
+.portfolio-chat-message-menu[open] summary {
+  background: var(--surface-raised);
+  color: var(--ink);
+}
+
+.portfolio-chat-message-menu {
+  position: relative;
+}
+
+.portfolio-chat-message-menu button {
+  position: absolute;
+  z-index: 1;
+  bottom: calc(100% + 4px);
+  left: 0;
+  width: max-content;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface-bg);
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.portfolio-chat-tooltip {
+  position: absolute;
+  z-index: 3;
+  width: max-content;
+  max-width: calc(100% - 12px);
+  padding: 5px 9px;
+  border-radius: 7px;
+  background: var(--ink);
+  color: var(--surface-bg);
+  font-size: 12px;
+  line-height: 16px;
+  pointer-events: none;
+}
+
+.portfolio-chat-tooltip::after {
+  content: "";
+  position: absolute;
+  left: var(--tooltip-arrow);
+  bottom: -3px;
+  width: 7px;
+  height: 7px;
+  background: inherit;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.portfolio-chat-tooltip[data-side="bottom"]::after {
+  top: -3px;
+  bottom: auto;
+}
+
+@keyframes portfolio-chat-open {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-chat {
+    transition: none;
+  }
+
+  .portfolio-chat-panel,
+  .portfolio-chat-answer.is-waiting::before,
+  .portfolio-chat-stream-chunk {
+    animation: none;
+  }
+}
+
 .resume-text-page {
   --resume-key-column: clamp(132px, 15.25vw, 211px);
   min-height: 100vh;
-  padding: 112px clamp(24px, 6vw, 96px) 80px;
+  padding: 112px var(--portfolio-gutter) 80px;
   background: var(--page-bg);
   font-size: clamp(15px, 1vw, 17px);
 }
 
 .resume-content {
-  width: min(1120px, 100%);
-  margin: 0 auto;
+  width: 100%;
 }
 
 .resume-content > h1 {
@@ -1605,7 +2515,7 @@ a {
 .resume-profile-list > div {
   display: grid;
   grid-template-columns: var(--resume-key-column) minmax(0, 1fr);
-  gap: 20px;
+  gap: 24px;
   line-height: 1.55;
 }
 
@@ -1616,6 +2526,18 @@ a {
 
 .resume-profile-list dd {
   margin: 0;
+}
+
+.resume-education-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(170px, 0.8fr);
+  gap: 6px 24px;
+  word-break: keep-all;
+}
+
+.resume-education-period {
+  color: var(--muted);
+  font-size: 0.9em;
 }
 
 .resume-record-list,
@@ -1692,7 +2614,7 @@ a {
 }
 
 .resume-shimmer--silver {
-  background-image: linear-gradient(105deg, #626971 0%, #aeb5bd 28%, #fff 48%, #a4abb4 62%, #555b63 100%);
+  background-image: linear-gradient(105deg, #353c44 0%, #505963 28%, #666d75 48%, #505963 62%, #353c44 100%);
 }
 
 .resume-shimmer--orange {
@@ -1718,6 +2640,7 @@ a {
 
 .tool-list li {
   display: flex;
+  font-weight: 350;
   justify-content: space-between;
   gap: 18px;
   padding-bottom: 8px;
@@ -1765,7 +2688,7 @@ html.reveal-ready .reveal-item.is-visible {
 
 @media (max-width: 760px) {
   .resume-text-page {
-    padding: 92px 22px 48px;
+    padding: 92px var(--portfolio-gutter) 48px;
   }
 
   .resume-content > h1 {
@@ -1784,6 +2707,14 @@ html.reveal-ready .reveal-item.is-visible {
   .resume-record-list li {
     grid-template-columns: var(--resume-key-column) minmax(0, 1fr);
     gap: 2px 14px;
+  }
+
+  .resume-profile-list > div {
+    column-gap: 14px;
+  }
+
+  .resume-education-row {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .resume-record-list li > :last-child {
@@ -1840,6 +2771,11 @@ html.reveal-ready .reveal-item.is-visible {
 .award-hover-preview.is-visible {
   opacity: 1;
   transform: translate3d(-50%, -50%, 0) scale(1) rotate(var(--preview-rotation, 0deg));
+}
+
+.award-hover-preview.is-wide {
+  width: min(320px, 48vw);
+  aspect-ratio: 1600 / 840;
 }
 
 .award-hover-preview img {
@@ -1906,6 +2842,10 @@ html.reveal-ready .reveal-item.is-visible {
 
   .resume-shimmer {
     color: var(--ink);
+  }
+
+  .resume-shimmer--silver {
+    background-image: linear-gradient(105deg, #a7afb8 0%, #c2c8cf 28%, #f5f7fa 48%, #c2c8cf 62%, #a7afb8 100%);
   }
 }
 
