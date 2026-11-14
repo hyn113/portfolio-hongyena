@@ -1,6 +1,7 @@
 (() => {
   const selector = [
     ".home-brand",
+    ".site-header .brand",
     ".home-nav a",
   ].join(",");
   const glyphs = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";

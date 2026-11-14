@@ -365,6 +365,7 @@ a {
 }
 
 .case-frame > img:not(.frame-layer) {
+  display: block;
   position: relative;
   z-index: 0;
   width: 100%;
@@ -827,21 +828,71 @@ a {
 }
 
 .stock-explore-loop {
-  --x: 725;
-  --y: 7943;
-  --w: 462;
-  --h: 1001;
-  --radius: 8.8%;
+  --x: 728;
+  --y: 7948;
+  --w: 455;
+  --h: 990;
+  --radius: 14% / 7%;
   --z: 1;
 }
 
 .stock-chart-loop {
-  --x: 1154;
-  --y: 11963;
-  --w: 371;
-  --h: 803;
-  --radius: 8.8%;
+  --x: 1156;
+  --y: 11965;
+  --w: 366;
+  --h: 796;
+  --radius: 14% / 7%;
   --z: 1;
+}
+
+.stock-screen-loop::after {
+  content: "";
+  position: absolute;
+  top: 0.9%;
+  left: 34%;
+  width: 32%;
+  height: 4.3%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: radial-gradient(circle at 82% 50%, #18243a 0 4%, #08090c 5% 100%);
+  pointer-events: none;
+}
+
+.stock-screen-loop video,
+.phone-screen-video.phone-screen-video video {
+  position: absolute;
+  top: var(--screen-video-y, 0%);
+  left: 0;
+  transform: none;
+  transform-origin: center;
+  width: 100%;
+  height: var(--screen-video-height, 100%);
+  object-fit: fill;
+}
+
+.stock-screen-loop,
+.phone-screen-video {
+  /* Crop the encoded 2px black bottom edge plus 2px interpolation buffer.
+     Keep the rounded screen mask unchanged; resize only its video content. */
+  --screen-video-height: 100.158228%; /* 2532 / (2532 - 4) */
+  background: #f0f2f7;
+  --radius: 11% 11% 14% 14% / 6% 6% 7% 7%;
+}
+
+.stock-chart-loop.stock-screen-loop {
+  --radius: 15% / 6.9%;
+}
+
+.stock-chart-loop.stock-screen-loop::after {
+  top: 1.4%;
+}
+
+.stock-explore-loop.stock-screen-loop {
+  --radius: 15% / 6.9%;
+}
+
+.stock-explore-loop.stock-screen-loop::after {
+  top: 1.4%;
 }
 
 .stock-bottom-loop {
@@ -853,7 +904,7 @@ a {
 
 .stocktalk-final-panel {
   --x: 0;
-  --y: 15980;
+  --y: 15972;
   --w: 1920;
   --h: 918;
   --z: 2;
@@ -944,43 +995,61 @@ a {
 }
 
 .pik-screen-a {
-  --x: 398;
-  --y: 12476;
-  --w: 433;
-  --h: 936;
-  --radius: 8.8%;
+  --x: 400.5;
+  --y: 12480;
+  --w: 428;
+  --h: 929;
+  --radius: 14% / 6.4%;
 }
 
 .pik-screen-b {
-  --x: 1094;
-  --y: 14114;
-  --w: 433;
-  --h: 937;
-  --radius: 8.8%;
+  --x: 1096.5;
+  --y: 14118;
+  --w: 428;
+  --h: 929;
+  --radius: 14% / 6.4%;
 }
 
 .pik-screen-c {
-  --x: 337;
-  --y: 15748;
-  --w: 433;
-  --h: 937;
-  --radius: 8.8%;
+  --x: 339.5;
+  --y: 15752;
+  --w: 428;
+  --h: 929;
+  --radius: 14% / 6.4%;
 }
 
 .pik-screen-d {
-  --x: 1091;
-  --y: 16139;
-  --w: 433;
-  --h: 937;
-  --radius: 8.8%;
+  --x: 1096.5;
+  --y: 16143;
+  --w: 428;
+  --h: 929;
+  --radius: 14% / 6.4%;
 }
 
 .pik-screen-e {
-  --x: 742;
-  --y: 17752;
-  --w: 433;
-  --h: 937;
-  --radius: 8.8%;
+  --x: 747.5;
+  --y: 17756;
+  --w: 428;
+  --h: 929;
+  --radius: 14% / 6.4%;
+}
+
+.phone-screen-video.phone-screen-video {
+  --radius: 13% / 6%;
+}
+
+/* The recordings omit the camera cutout. Keep it above the moving screen. */
+.phone-screen-video::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: 1.8%;
+  left: 34.3%;
+  width: 31.4%;
+  height: 4.25%;
+  border-radius: 999px;
+  background: radial-gradient(circle at 85% 50%, #16223c 0 3%, #080a10 4% 7%, #000 8% 100%);
+  pointer-events: none;
 }
 
 .pik-phone-mockup {
@@ -999,11 +1068,11 @@ a {
 }
 
 .efficient-phone-b {
-  --x: 1216.41;
-  --y: 21303.23;
-  --w: 503.55;
-  --h: 1089.73;
-  --radius: 7.8%;
+  --x: 1221;
+  --y: 21309;
+  --w: 494;
+  --h: 1082;
+  --radius: 16% / 7.3%;
 }
 
 .efficient-mockup {
@@ -1014,11 +1083,11 @@ a {
 }
 
 .efficient-phone-c {
-  --x: 1182;
-  --y: 24774.8;
-  --w: 506.3;
-  --h: 1095.69;
-  --radius: 7.8%;
+  --x: 1186;
+  --y: 24782;
+  --w: 499;
+  --h: 1082;
+  --radius: 16% / 7.3%;
 }
 
 .separate-page {
@@ -1216,6 +1285,9 @@ a {
 
 .home-brand {
   display: inline-block;
+  height: 1.2em;
+  line-height: 1.2;
+  vertical-align: top;
   font-size: clamp(14px, 0.9vw, 16px);
   font-weight: 700;
 }
@@ -2617,7 +2689,7 @@ a {
 }
 
 .resume-shimmer--silver {
-  background-image: linear-gradient(105deg, #353c44 0%, #505963 28%, #666d75 48%, #505963 62%, #353c44 100%);
+  background-image: linear-gradient(105deg, #626972 0%, #858d97 28%, #d4d8dd 48%, #858d97 62%, #626972 100%);
 }
 
 .resume-shimmer--orange {
@@ -2859,4 +2931,45 @@ html.reveal-ready .reveal-item.is-visible {
   .project-switcher {
     display: none;
   }
+}
+
+/* Match the screen apertures to the original phone artwork. */
+.pik-screen-a.phone-screen-video,
+.pik-screen-b.phone-screen-video,
+.pik-screen-c.phone-screen-video,
+.pik-screen-d.phone-screen-video,
+.pik-screen-e.phone-screen-video {
+  --radius: 14% / 6.4%;
+}
+
+/* Cover the old static screen at the video mask edge without covering the bezel. */
+.pik-screen-backing {
+  --vx: -2;
+  --vy: -2;
+  --vw: 4;
+  --vh: 4;
+  --radius: 14% / 6.4%;
+  background: #000;
+}
+
+/* Exclude the encoded right-edge black columns from Pik! screen recordings. */
+.pik-frame .phone-screen-video video {
+  max-width: none; /* Allow the encoded edge crop beyond the fixed rounded mask. */
+  width: 100.343053%; /* 1170 / (1170 - 4), including filtering buffer */
+}
+
+/* Fit the two Efficient recordings inside the measured screen apertures. */
+.efficient-frame .phone-screen-video { --radius: 14% / 6.4%; }
+.efficient-frame .phone-screen-video video {
+  max-width: none;
+  width: 100.343053%;
+}
+
+.efficient-screen-backing {
+  --vx: -2;
+  --vy: -2;
+  --vw: 4;
+  --vh: 4;
+  --radius: 14% / 6.4%;
+  background: #000;
 }
