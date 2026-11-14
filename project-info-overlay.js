@@ -17,6 +17,24 @@ document.querySelectorAll(".case-frame[data-project-title]").forEach((page) => {
   const sourceSwitcher = page.parentElement.querySelector(":scope > .project-switcher");
   const overlaySwitcher = sourceSwitcher?.cloneNode(true) || null;
 
+  // Reuse the visible navigation order for keyboard navigation too.
+  document.addEventListener("keydown", (event) => {
+    if (event.defaultPrevented || event.repeat || event.isComposing ||
+        event.ctrlKey || event.metaKey || event.altKey) return;
+    const target = event.target;
+    if (target instanceof Element &&
+        (target.closest("input, textarea, select, video, audio, [role='textbox'], [role='slider']") ||
+         target.isContentEditable)) return;
+    const key = event.key.toLowerCase();
+    const direction = key === "arrowleft" || key === "a" ? "prev"
+      : key === "arrowright" || key === "d" ? "next" : null;
+    if (!direction) return;
+    const link = sourceSwitcher?.querySelector(`.project-switcher-${direction}`);
+    if (!link) return;
+    event.preventDefault();
+    window.location.assign(link.href);
+  });
+
   dialog.className = "project-info-dialog";
   dialog.setAttribute("aria-label", `${page.dataset.projectTitle} project information`);
   if (overlaySwitcher) overlaySwitcher.classList.add("project-info-switcher");
